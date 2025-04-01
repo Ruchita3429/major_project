@@ -101,26 +101,26 @@ function Exercise() {
   const [currentSet, setCurrentSet] = useState(1);
   const [isResting, setIsResting] = useState(false);
   const [formTips, setFormTips] = useState([]);
-  const [lastCount, setLastCount] = useState(0);
 
   useEffect(() => {
     if (!exerciseEndpoints[type]) return;
 
     socketService.subscribeToExerciseUpdates(type, {
       onUpdate: (data) => {
-        if (data.count !== lastCount) {
-          setCount(data.count);
-          setLastCount(data.count);
-        }
-        setStatus(data.status);
         setFormTips(data.formTips || []);
+      },
+      onCount: (data) => {
+        setCount(data.count);
+      },
+      onStatus: (data) => {
+        setStatus(data.status);
       },
     });
 
     return () => {
       socketService.unsubscribeFromExerciseUpdates();
     };
-  }, [type, lastCount]);
+  }, [type]);
 
   const handleWorkoutComplete = () => {
     setIsResting(true);
@@ -131,8 +131,6 @@ function Exercise() {
     setIsResting(false);
     setCurrentSet(prev => prev + 1);
     setStatus('Ready for next set');
-    setCount(0);
-    setLastCount(0);
   };
 
   if (!exerciseEndpoints[type]) {

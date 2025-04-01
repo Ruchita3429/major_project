@@ -26,8 +26,12 @@ class SocketService {
       if (callbacks.onUpdate) callbacks.onUpdate(data);
     });
 
-    this.socket.on('status', (data) => {
-      console.log('Status update:', data);
+    this.socket.on('exercise-count', (data) => {
+      if (callbacks.onCount) callbacks.onCount(data);
+    });
+
+    this.socket.on('exercise-status', (data) => {
+      if (callbacks.onStatus) callbacks.onStatus(data);
     });
   }
 
@@ -35,7 +39,8 @@ class SocketService {
     if (this.socket) {
       this.socket.emit('leave-exercise');
       this.socket.off('exercise-update');
-      this.socket.off('status');
+      this.socket.off('exercise-count');
+      this.socket.off('exercise-status');
     }
   }
 
