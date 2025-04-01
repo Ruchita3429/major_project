@@ -10,6 +10,7 @@ ENV/
 env/
 .env/
 .venv/
+node_modules/
 
 # C extensions
 *.so
