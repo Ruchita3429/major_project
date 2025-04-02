@@ -8,6 +8,7 @@ import {
   Box,
 } from '@mui/material';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 
 function Navbar() {
   return (
@@ -17,13 +18,21 @@ function Navbar() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           GymJam
         </Typography>
-        <Box>
+        <Box sx={{ display: 'flex', gap: 2 }}>
           <Button
             color="inherit"
             component={RouterLink}
             to="/"
           >
             Home
+          </Button>
+          <Button
+            color="inherit"
+            component={RouterLink}
+            to="/workout-generator"
+            startIcon={<AutoAwesomeIcon />}
+          >
+            Workout Generator
           </Button>
         </Box>
       </Toolbar>

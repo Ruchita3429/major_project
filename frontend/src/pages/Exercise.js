@@ -24,6 +24,10 @@ const exerciseEndpoints = {
   'right-bicep': '/video_feed_right',
   'pushup': '/video_feed_pushup',
   'squat': '/video_feed_squat',
+  'sun-salutation': '/video_feed_sun_salutation',
+  'mountain-climbers': '/video_feed_mountain_climbers',
+  'jump-rope': '/video_feed_jump_rope',
+  'yoga-blocks': '/video_feed_yoga_blocks'
 };
 
 const exerciseInstructions = {
@@ -91,6 +95,70 @@ const exerciseInstructions = {
       'Lifting heels off the ground',
     ],
   },
+  'sun-salutation': {
+    description: 'A flowing sequence of yoga poses that serves as a warm-up or complete practice.',
+    tips: [
+      'Move with your breath',
+      'Keep your core engaged throughout the sequence',
+      'Focus on alignment in each pose',
+      'Move slowly and mindfully',
+      'Modify poses as needed for your body'
+    ],
+    commonMistakes: [
+      'Rushing through the sequence',
+      'Holding the breath',
+      'Rounding the back in forward folds',
+      'Collapsing in plank pose'
+    ]
+  },
+  'mountain-climbers': {
+    description: 'Starting in a plank position, alternately bring knees to chest in a running motion.',
+    tips: [
+      'Keep your core tight',
+      'Maintain a straight line from head to heels',
+      'Move at a controlled pace',
+      'Keep shoulders over wrists',
+      'Land lightly on your toes'
+    ],
+    commonMistakes: [
+      'Sagging hips',
+      'Moving too slowly',
+      'Bouncing up and down',
+      'Not bringing knees close enough to chest'
+    ]
+  },
+  'jump-rope': {
+    description: 'Jump over a rope as it passes under your feet, swung by your hands.',
+    tips: [
+      'Keep elbows close to body',
+      'Jump just high enough to clear the rope',
+      'Land softly on the balls of your feet',
+      'Maintain a steady rhythm',
+      'Keep your core engaged'
+    ],
+    commonMistakes: [
+      'Jumping too high',
+      'Arms too far from body',
+      'Landing flat-footed',
+      'Inconsistent pace'
+    ]
+  },
+  'yoga-blocks': {
+    description: 'Use yoga blocks to support and enhance various yoga poses.',
+    tips: [
+      'Use blocks to maintain proper alignment',
+      'Keep spine long and engaged',
+      'Breathe deeply and steadily',
+      'Place blocks securely on the ground',
+      'Modify block height as needed'
+    ],
+    commonMistakes: [
+      'Placing blocks unstably',
+      'Collapsing weight into the blocks',
+      'Holding the breath',
+      'Improper block height for your flexibility'
+    ]
+  }
 };
 
 function Exercise() {
@@ -173,7 +241,7 @@ function Exercise() {
             }}
           >
             <img
-              src={exerciseEndpoints[type]}
+              src={window.location.origin + exerciseEndpoints[type]}
               alt="Exercise Feed"
               style={{
                 width: '100%',

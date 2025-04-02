@@ -1,14 +1,19 @@
-from flask import Flask, render_template, Response, request, redirect
+from flask import Flask, render_template, Response, request, redirect, jsonify
 from flask_socketio import SocketIO, emit, join_room, leave_room
 from pose_left import left_curl
 from pose_right import right_curl
 from pose_pushup import pushup
 from pose_squat import squat
+from pose_yoga_sun import sun_salutation
+from pose_mountain_climbers import mountain_climbers
+from pose_jump_rope import jump_rope
+from pose_yoga_blocks import yoga_blocks
 import cv2
 import mediapipe as mp
 import numpy as np
 import threading
 import time
+from workout_generator import generate_workout
 
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
@@ -22,7 +27,11 @@ exercise_data = {
     'left-bicep': {'count': 0, 'status': 'Ready to start', 'form_tips': []},
     'right-bicep': {'count': 0, 'status': 'Ready to start', 'form_tips': []},
     'pushup': {'count': 0, 'status': 'Ready to start', 'form_tips': []},
-    'squat': {'count': 0, 'status': 'Ready to start', 'form_tips': []}
+    'squat': {'count': 0, 'status': 'Ready to start', 'form_tips': []},
+    'sun-salutation': {'count': 0, 'status': 'Ready to start', 'form_tips': []},
+    'mountain-climbers': {'count': 0, 'status': 'Ready to start', 'form_tips': []},
+    'jump-rope': {'count': 0, 'status': 'Ready to start', 'form_tips': []},
+    'yoga-blocks': {'count': 0, 'status': 'Ready to start', 'form_tips': []}
 }
 
 # Thread to update frontend with counts
@@ -64,10 +73,46 @@ def video_feed_squat():
     return Response(squat(socketio, exercise_data, 'squat'),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/video_feed_sun_salutation')
+def video_feed_sun_salutation():
+    return Response(sun_salutation(socketio, exercise_data, 'sun-salutation'),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_feed_mountain_climbers')
+def video_feed_mountain_climbers():
+    return Response(mountain_climbers(socketio, exercise_data, 'mountain-climbers'),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_feed_jump_rope')
+def video_feed_jump_rope():
+    return Response(jump_rope(socketio, exercise_data, 'jump-rope'),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_feed_yoga_blocks')
+def video_feed_yoga_blocks():
+    return Response(yoga_blocks(socketio, exercise_data, 'yoga-blocks'),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
 @app.route('/show')
 def show():
     subject = request.args.get('sub')
     return redirect(f'/video_feed_{subject}')
+
+@app.route('/api/generate-workout', methods=['POST'])
+def create_workout():
+    data = request.json
+    try:
+        workout = generate_workout(
+            fitness_goal=data['fitnessGoal'],
+            available_equipment=data['availableEquipment'],
+            duration=data['duration'],
+            experience_level=data['experienceLevel'],
+            workout_type=data['workoutType'],
+            restrictions=data.get('restrictions', [])
+        )
+        return jsonify(workout)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
 
 # Socket.IO event handlers
 @socketio.on('connect')

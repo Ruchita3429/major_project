@@ -36,6 +36,30 @@ const exercises = [
     description: 'Master the squat technique with real-time feedback.',
     image: '/assets/squats.jpg',
   },
+  {
+    id: 'sun-salutation',
+    title: 'Sun Salutation',
+    description: 'Flow through the classic yoga sequence with proper alignment.',
+    image: '/assets/yoga.jpg',
+  },
+  {
+    id: 'mountain-climbers',
+    title: 'Mountain Climbers',
+    description: 'Build cardio fitness with properly executed mountain climbers.',
+    image: '/assets/cardio.jpg',
+  },
+  {
+    id: 'jump-rope',
+    title: 'Jump Rope',
+    description: 'Perfect your jump rope technique for improved cardio.',
+    image: '/assets/jump-rope.jpg',
+  },
+  {
+    id: 'yoga-blocks',
+    title: 'Yoga with Blocks',
+    description: 'Use yoga blocks to support proper alignment in different poses.',
+    image: '/assets/yoga-blocks.jpg',
+  },
 ];
 
 function Home() {

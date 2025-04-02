@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Exercise from './pages/Exercise';
+import WorkoutGenerator from './pages/WorkoutGenerator';
 
 const theme = createTheme({
   palette: {
@@ -30,6 +31,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/exercise/:type" element={<Exercise />} />
+              <Route path="/workout-generator" element={<WorkoutGenerator />} />
             </Routes>
           </Box>
         </Box>
