@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import SmartToyIcon from '@mui/icons-material/SmartToy';
 
 function Navbar() {
   return (
@@ -33,6 +34,14 @@ function Navbar() {
             startIcon={<AutoAwesomeIcon />}
           >
             Workout Generator
+          </Button>
+          <Button
+            color="inherit"
+            component={RouterLink}
+            to="/fitness-coach"
+            startIcon={<SmartToyIcon />}
+          >
+            Fitness Coach
           </Button>
         </Box>
       </Toolbar>

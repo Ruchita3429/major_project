@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Exercise from './pages/Exercise';
 import WorkoutGenerator from './pages/WorkoutGenerator';
+import FitnessCoach from './pages/FitnessCoach';
 
 const theme = createTheme({
   palette: {
@@ -32,6 +33,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/exercise/:type" element={<Exercise />} />
               <Route path="/workout-generator" element={<WorkoutGenerator />} />
+              <Route path="/fitness-coach" element={<FitnessCoach />} />
             </Routes>
           </Box>
         </Box>
